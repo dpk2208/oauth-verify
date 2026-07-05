@@ -44,11 +44,11 @@ def verify(request: TokenRequest):
         }
 
     except Exception as e:
-    return JSONResponse(
-        status_code=401,
-        content={
-            "valid": False,
-            "error": str(e),
-            "type": type(e).__name__
-        }
-    )
+        return JSONResponse(
+            status_code=401,
+            content={
+                "valid": False,
+                "error": str(e),
+                "type": type(e).__name__
+            }
+        )
