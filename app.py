@@ -27,28 +27,17 @@ class TokenRequest(BaseModel):
 
 @app.post("/verify")
 def verify(request: TokenRequest):
-    try:
-        payload = jwt.decode(
-            request.token,
-            PUBLIC_KEY,
-            algorithms=["RS256"],
-            audience=AUDIENCE,
-            issuer=ISSUER,
-        )
+    payload = jwt.decode(
+        request.token,
+        PUBLIC_KEY,
+        algorithms=["RS256"],
+        audience=AUDIENCE,
+        issuer=ISSUER,
+    )
 
-        return {
-            "valid": True,
-            "email": payload.get("email"),
-            "sub": payload.get("sub"),
-            "aud": payload.get("aud"),
-        }
-
-    except Exception as e:
-        return JSONResponse(
-            status_code=401,
-            content={
-                "valid": False,
-                "error": str(e),
-                "type": type(e).__name__
-            }
-        )
+    return {
+        "valid": True,
+        "email": payload.get("email"),
+        "sub": payload.get("sub"),
+        "aud": payload.get("aud"),
+    }
