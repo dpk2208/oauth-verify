@@ -43,8 +43,12 @@ def verify(request: TokenRequest):
             "aud": payload.get("aud"),
         }
 
-    except Exception:
-        return JSONResponse(
-            status_code=401,
-            content={"valid": False}
-        )
+    except Exception as e:
+    return JSONResponse(
+        status_code=401,
+        content={
+            "valid": False,
+            "error": str(e),
+            "type": type(e).__name__
+        }
+    )
